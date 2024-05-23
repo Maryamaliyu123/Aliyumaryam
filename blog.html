@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blogging App</title> 
+</head>
+<body>
+    <style>
+           /* Basic styling for the app */
+body {
+    font-family: Times New Roman;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: cyan;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: gold;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: red;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#blog-list {
+    margin-bottom: 20px;
+}
+
+.blog-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.pagination-link {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: chocolate;
+}
+g {
+    background-color: rosybrown;
+}
+
+h2 {
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+    <header>
+        <h1>My Blogging App</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="contact.html">Sign In</a></li>
+                <li><a href="about.html">Sign Up</a></li>
+                <li><a href="services.html">Create Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <p><br>
+        <label> Search Blog:</label>
+        <input type="text">
+    </p>
+
+    <main>
+        <!-- Display list of blogs -->
+        <section id="blog-list">
+            <!-- Blog items will be dynamically added here -->
+        </section>
+
+        <!-- Pagination -->
+        <div id="pagination">
+            <!-- Pagination links will be dynamically added here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Blogging App</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const blogs = [
+    
+    {
+        title: "The Art of Writing Clean Code",
+        description: "Learn the principles and practices of writing clean and maintainable code.",
+        author: "John Doe",
+        state: "published",
+        read_count: 1200,
+        reading_time: "10 mins",
+        tags: ["coding", "programming", "best practices"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum mauris vitae massa semper sagittis...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "Introduction to Machine Learning",
+        description: "Explore the fundamentals of machine learning and its applications.",
+        author: "Jane Smith",
+        state: "draft",
+        read_count: 500,
+        reading_time: "15 mins",
+        tags: ["machine learning", "data science", "artificial intelligence"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod nunc sed magna...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "The Power of Positive Thinking",
+        description: "Discover how positive thinking can transform your life and improve your mental health.",
+        author: "Alice Johnson",
+        state: "published",
+        read_count: 800,
+        reading_time: "8 mins",
+        tags: ["psychology", "self-improvement", "mindfulness"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum rhoncus nulla at...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "Exploring the Wonders of the Universe",
+        description: "Embark on a journey through space and time to uncover the mysteries of the cosmos.",
+        author: "David Brown",
+        state: "published",
+        read_count: 1500,
+        reading_time: "20 mins",
+        tags: ["astronomy", "cosmology", "space exploration"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar urna id...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "Mastering the Art of Public Speaking",
+        description: "Learn the essential techniques and strategies to become a confident and persuasive public speaker.",
+        author: "Michael Lee",
+        state: "published",
+        read_count: 1000,
+        reading_time: "12 mins",
+        tags: ["public speaking", "communication", "leadership"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada, urna vel...",
+    timestamp: new Date().toISOString()
+        },
+        {
+            title: "The Art of Cooking",
+            description: "Discover the joy of cooking with these easy-to-follow recipes and cooking tips.",
+            tags: ["Cooking", "Recipes", "Food"],
+            author: "John Doe",
+            read_count: 100,
+            reading_time: 10,
+            body: "A culinary art is the art of cooking. Cooking is the process of preparing food and meals that will be eaten or the food served to other people."
+        },
+        {
+            title: "Traveling on a Budget",
+            description: "Explore the world without breaking the bank! Learn how to travel affordably with these budget-friendly travel tips.",
+            tags: ["Travel", "Budget", "Adventure"],
+            author: "Jane Smith",
+            read_count: 150,
+            reading_time: 15,
+            body: "Budget travel is travel that is cost-conscious and price-aware. A budget traveler is someone who travels usually finding cheap flight tickets, low-cost accommodations, wallet-friendly food, and free or cheap tourist attractions to visit while there."
+        },
+        {
+        title: "The Art of Writing Clean Code",
+        description: "Learn the principles and practices of writing clean and maintainable code.",
+        author: "John Doe",
+        state: "published",
+        read_count: 1200,
+        reading_time: "10 mins",
+        tags: ["coding", "programming", "best practices"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum mauris vitae massa semper sagittis...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "Introduction to Machine Learning",
+        description: "Explore the fundamentals of machine learning and its applications.",
+        author: "Jane Smith",
+        state: "draft",
+        read_count: 500,
+        reading_time: "15 mins",
+        tags: ["machine learning", "data science", "artificial intelligence"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod nunc sed magna...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "The Power of Positive Thinking",
+        description: "Discover how positive thinking can transform your life and improve your mental health.",
+        author: "Alice Johnson",
+        state: "published",
+        read_count: 800,
+        reading_time: "8 mins",
+        tags: ["psychology", "self-improvement", "mindfulness"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum rhoncus nulla at...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "Exploring the Wonders of the Universe",
+        description: "Embark on a journey through space and time to uncover the mysteries of the cosmos.",
+        author: "David Brown",
+        state: "published",
+        read_count: 1500,
+        reading_time: "20 mins",
+        tags: ["astronomy", "cosmology", "space exploration"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pulvinar urna id...",
+        timestamp: new Date().toISOString()
+    },
+    {
+        title: "Mastering the Art of Public Speaking",
+        description: "Learn the essential techniques and strategies to become a confident and persuasive public speaker.",
+        author: "Michael Lee",
+        state: "published",
+        read_count: 1000,
+        reading_time: "12 mins",
+        tags: ["public speaking", "communication", "leadership"],
+        body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada, urna vel...",
+        timestamp: new Date().toISOString()
+    },
+        {
+            title: "The Benefits of Yoga",
+            description: "Discover the physical and mental health benefits of practicing yoga regularly.",
+            tags: ["Yoga", "Health", "Wellness"],
+            author: "Emily Johnson",
+            read_count: 80,
+            reading_time: 8,
+            body: "Yoga offers physical and mental health benefits for people of all ages. And, if you’re going through an illness, recovering from surgery or living with a chronic condition, yoga can become an integral part of your treatment and potentially hasten healing. "
+        },
+        {
+            title: "Introduction to Machine Learning",
+            description: "Learn the basics of machine learning and how it's revolutionizing various industries.",
+            tags: ["Machine Learning", "Artificial Intelligence", "Technology"],
+            author: "Alex Williams",
+            read_count: 200,
+            reading_time: 20,
+            body: "Machine learning (ML) is a branch of artificial intelligence (AI) that enables computers to “self-learn” from training data and improve over time, without being explicitly programmed. Machine learning algorithms are able to detect patterns in data and learn from them, in order to make their own predictions."
+        }
+        
+        
+    ];
+
+    renderBlogs(blogs);
+
+    // Function to render blogs
+    function renderBlogs(blogs) {
+        const blogListContainer = document.getElementById('blog-list');
+
+        // Clear existing content
+        blogListContainer.innerHTML = '';
+
+        // Iterate over blogs and create HTML elements
+        blogs.forEach(blog => {
+            const blogItem = document.createElement('div');
+            blogItem.classList.add('blog-item');
+            blogItem.innerHTML = `
+                <h2>${blog.title}</h2>
+                <p>${blog.description}</p>
+                <p>Author: ${blog.author}</p>
+                <p>Tags: ${blog.tags.join(', ')}</p>
+                <p>Read count: ${blog.read_count}</p>
+                <p>Reading time: ${blog.reading_time} minutes</p>
+                <p>${blog.body}</p>
+            `;
+            blogListContainer.appendChild(blogItem);
+        });
+    }
+});
+
+    </script>
+</body>
+</html>
